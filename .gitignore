@@ -60,12 +60,3 @@ build/
 
 ## OS Specific
 .DS_Store
-
-## Custom
-android/*
-!android/src/
-!android/assets/
-!android/build.gradle
-!android/AndroidManifest.xml
-
-gradle/
