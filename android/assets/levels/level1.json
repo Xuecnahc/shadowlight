@@ -1,0 +1,18 @@
+{
+   "box":[
+      {
+         "type":"solid",
+         "x":1,
+         "y":1,
+         "width":2,
+         "height":2
+      },
+      {
+         "type":"solid",
+         "x":0,
+         "y":2,
+         "width":1,
+         "height":2
+      }
+   ]
+}
