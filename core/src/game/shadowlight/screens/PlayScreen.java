@@ -29,6 +29,8 @@ import game.shadowlight.entities.Leader;
 import game.shadowlight.entities.Level;
 import game.shadowlight.entities.collidable.GameContactListener;
 import game.shadowlight.entities.levelObjects.Box;
+import game.shadowlight.entities.levelObjects.MovableObject;
+import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.utils.GameParser;
 
 public class PlayScreen implements Screen {
@@ -69,11 +71,20 @@ public class PlayScreen implements Screen {
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
     for (Body body : tmpBodies)
-      if (body.getUserData() instanceof Sprite) {
-        Sprite sprite = (Sprite) body.getUserData();
-        sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
-        sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
-        sprite.draw(batch);
+      if (body.getUserData() instanceof GenericUserData) {
+        GenericUserData data = (GenericUserData) body.getUserData();
+        if (!data.isToBeDestroyed()) {
+          Sprite sprite = data.getSprite();
+          if (sprite != null) {
+            sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2,
+                body.getPosition().y - sprite.getHeight() / 2);
+            sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+            sprite.draw(batch);
+          }
+        } else {
+          world.destroyBody(body);
+          tmpBodies.removeValue(body, true);
+        }
       }
     batch.end();
 
@@ -98,6 +109,7 @@ public class PlayScreen implements Screen {
     batch = new SpriteBatch();
     camera = new OrthographicCamera(Gdx.graphics.getWidth() / 25, Gdx.graphics.getHeight() / 25);
 
+    // Init the stage with the corresponding JSON file
     Level level = null;
     try {
       level = GameParser.parseLevelFromId(1, world, tmpBodies);
@@ -117,6 +129,8 @@ public class PlayScreen implements Screen {
 
     // Create player and set listeners
     player = new Leader(world, 0, 1, 1);
+    MovableObject object = new Box(world, 1, 1, 1, 1);
+    tmpBodies.add(object.getBody());
     Gdx.input.setInputProcessor(new InputMultiplexer(player, new InputAdapter() {
       @Override
       public boolean keyDown(int keycode) {
@@ -134,7 +148,6 @@ public class PlayScreen implements Screen {
       }
     }));
     createContactListener();
-    
     BodyDef bodyDef = new BodyDef();
     FixtureDef fixtureDef = new FixtureDef();
 
@@ -168,7 +181,7 @@ public class PlayScreen implements Screen {
     world.setContactFilter(contact);
     world.setContactListener(contact);
   }
-  
+
   @Override
   public void hide() {
     dispose();

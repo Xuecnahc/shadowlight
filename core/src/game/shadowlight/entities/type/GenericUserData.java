@@ -7,23 +7,27 @@ import game.shadowlight.utils.EnumUserDataId;
 
 public class GenericUserData {
 
-  public GenericUserData(EnumUserDataId id, Sprite sprite, EntityDestructable destructability, ICollisionReaction collisionReaction) {
+  public GenericUserData(EnumUserDataId id, Sprite sprite, OffensiveProperties offense, DefensiveProperties defense,
+      ICollisionReaction collisionReaction) {
     this.id = id;
     this.sprite = sprite;
-    this.destructability = destructability;
+    this.defense = defense;
     this.collisionReaction = collisionReaction;
+    this.offense = offense;
   }
 
   private ICollisionReaction collisionReaction;
-  
-  private EntityDestructable destructability;
+
+  private DefensiveProperties defense;
+
+  private OffensiveProperties offense;
 
   private EnumUserDataId id;
 
   private Sprite sprite;
-  
+
   private int nbJump;
-  
+
   private boolean toBeDestroyed;
 
   public EnumUserDataId getId() {
@@ -42,12 +46,20 @@ public class GenericUserData {
     this.sprite = sprite;
   }
 
-  public EntityDestructable getDestructability() {
-    return destructability;
+  public DefensiveProperties getDefense() {
+    return defense;
   }
 
-  public void setDestructability(EntityDestructable destructability) {
-    this.destructability = destructability;
+  public void setDefense(DefensiveProperties defense) {
+    this.defense = defense;
+  }
+
+  public OffensiveProperties getOffense() {
+    return offense;
+  }
+
+  public void setOffense(OffensiveProperties offense) {
+    this.offense = offense;
   }
 
   public boolean isToBeDestroyed() {
