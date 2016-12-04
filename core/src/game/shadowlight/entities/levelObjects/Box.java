@@ -1,71 +1,33 @@
 package game.shadowlight.entities.levelObjects;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Box {
-  private Body body;
-  private Fixture fixture;
-  private float width;
-  private float height;
-  private float x;
-  private float y;
+import game.shadowlight.entities.GenericUserData;
 
-  public Box(float x, float y, float width, float height) {
-    this.width = width;
-    this.height = height;
-    this.x = x;
-    this.y = y;
-  }
- 
+public class Box extends MovableObject {
+
   public Box(World world, float x, float y, float width, float height) {
-    this.width = width;
-    this.height = height;
-    this.x = x;
-    this.y = y;
-    
-    this.setWorld(world);
+    super(world, x, y, width, height);
   }
 
-  public void setWorld(World world) {
-    BodyDef bodyDef = new BodyDef();
-    bodyDef.type = BodyType.StaticBody;
-    bodyDef.position.set(this.x, this.y);
-    bodyDef.fixedRotation = true;
-
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(this.width / 2, this.height / 2);
-
+  @Override
+  protected FixtureDef getFixtureDef(Shape shape) {
     FixtureDef fixtureDef = new FixtureDef();
+    fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.restitution = 0f;
-    fixtureDef.friction = 0.4f;
-    fixtureDef.density = 3;
-    this.body = world.createBody(bodyDef);
-    this.fixture = this.body.createFixture(fixtureDef);
+    fixtureDef.friction = 1f;
+    fixtureDef.density = 5;
+    return fixtureDef;
   }
 
-  public float getRestitution() {
-    return this.fixture.getRestitution();
+  @Override
+  protected GenericUserData getUserData() {
+    return new GenericUserData("box", null);
   }
 
-  public void setRestitution(float restitution) {
-    this.fixture.setRestitution(restitution);
-  }
-
-  public Body getBody() {
-    return this.body;
-  }
-
-  public Fixture getFixture() {
-    return this.fixture;
-  }
-  
   @Override
   public String toString() {
     return "Box [width: " + this.width + "height" + this.height + "x" + this.x + "y" + this.y;
