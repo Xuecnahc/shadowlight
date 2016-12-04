@@ -3,30 +3,34 @@ package game.shadowlight.entities.type;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import game.shadowlight.entities.collidable.ICollisionReaction;
+import game.shadowlight.utils.EnumUserDataId;
 
 public class GenericUserData {
 
-  public GenericUserData(String id, Sprite sprite, EntityDestructable destructability) {
+  public GenericUserData(EnumUserDataId id, Sprite sprite, EntityDestructable destructability, ICollisionReaction collisionReaction) {
     this.id = id;
     this.sprite = sprite;
     this.destructability = destructability;
+    this.collisionReaction = collisionReaction;
   }
 
   private ICollisionReaction collisionReaction;
   
   private EntityDestructable destructability;
 
-  private String id;
+  private EnumUserDataId id;
 
   private Sprite sprite;
   
+  private int nbJump;
+  
   private boolean toBeDestroyed;
 
-  public String getId() {
+  public EnumUserDataId getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(EnumUserDataId id) {
     this.id = id;
   }
 
@@ -52,6 +56,22 @@ public class GenericUserData {
 
   public void setToBeDestroyed(boolean toBeDestroyed) {
     this.toBeDestroyed = toBeDestroyed;
+  }
+
+  public ICollisionReaction getCollisionReaction() {
+    return collisionReaction;
+  }
+
+  public void setCollisionReaction(ICollisionReaction collisionReaction) {
+    this.collisionReaction = collisionReaction;
+  }
+
+  public int getNbJump() {
+    return nbJump;
+  }
+
+  public void setNbJump(int nbJump) {
+    this.nbJump = nbJump;
   }
 
 }

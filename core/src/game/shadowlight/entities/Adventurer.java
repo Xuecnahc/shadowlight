@@ -6,19 +6,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactFilter;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import game.shadowlight.entities.collidable.PlayerCollisionReaction;
+import game.shadowlight.entities.type.EntityDestructable;
+import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.jobs.Job;
+import game.shadowlight.utils.EnumUserDataId;
 
-public abstract class Adventurer extends InputAdapter implements ContactFilter, ContactListener {
+public abstract class Adventurer extends InputAdapter {
 
 	protected Body body;
 	protected Fixture fixture;
@@ -46,38 +45,13 @@ public abstract class Adventurer extends InputAdapter implements ContactFilter, 
 		fixtureDef.density = 1f;
 
 		body = world.createBody(bodyDef);
+		body.setUserData(new GenericUserData(EnumUserDataId.PLAYER, null, new EntityDestructable(true, 10, 1), new PlayerCollisionReaction()));
 		fixture = body.createFixture(fixtureDef);
 	}
 
 	public void update() {
 		float xSpeed = (body.getLinearVelocity().x>=maxSpeed || body.getLinearVelocity().x<=-maxSpeed)?0:velocity.x;
 		body.applyForceToCenter(xSpeed, velocity.y, true);
-	}
-
-	@Override
-	public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {
-		return true;
-	}
-
-	@Override
-	public void beginContact(Contact contact) {
-	}
-
-	@Override
-	public void preSolve(Contact contact, Manifold oldManifold) {
-	}
-
-	@Override
-	public void postSolve(Contact contact, ContactImpulse impulse) {
-		if(contact.getFixtureA() == fixture || contact.getFixtureB() == fixture)
-			if(contact.getWorldManifold().getPoints()[0].y <= body.getPosition().y - HEIGHT / 2) {
-				nbJump = 0;
-				//body.applyLinearImpulse(0, jumpPower, body.getWorldCenter().x, body.getWorldCenter().y, true);
-			}
-	}
-
-	@Override
-	public void endContact(Contact contact) {
 	}
 	
 	@Override
@@ -120,20 +94,16 @@ public abstract class Adventurer extends InputAdapter implements ContactFilter, 
 		return false;
 	}
 
-	public float getRestitution() {
-		return fixture.getRestitution();
-	}
+	public float getWidth() {
+    return WIDTH;
+  }
 
-	public void setRestitution(float restitution) {
-		fixture.setRestitution(restitution);
-	}
+  public float getHeight() {
+    return HEIGHT;
+  }
 
-	public Body getBody() {
+  public Body getBody() {
 		return body;
-	}
-
-	public Fixture getFixture() {
-		return fixture;
 	}
 
 }
