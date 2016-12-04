@@ -1,0 +1,29 @@
+
+atlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+progressbar
+  rotate: false
+  xy: 1, 1
+  size: 43, 24
+  split: 13, 12, 10, 10
+  orig: 43, 24
+  offset: 0, 0
+  index: -1
+button.down
+  rotate: false
+  xy: 46, 16
+  size: 9, 9
+  split: 3, 2, 2, 4
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+button.up
+  rotate: false
+  xy: 46, 5
+  size: 9, 9
+  split: 2, 3, 2, 3
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
