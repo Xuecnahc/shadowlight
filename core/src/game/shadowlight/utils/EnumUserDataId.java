@@ -5,7 +5,7 @@ import game.shadowlight.entities.type.GenericUserData;
 /**
  * ID of the {@link GenericUserData}
  * 
- * @author Bertrand
+ * @author Zulrage
  *
  */
 public enum EnumUserDataId {

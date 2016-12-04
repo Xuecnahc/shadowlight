@@ -13,19 +13,19 @@ import game.shadowlight.entities.type.GenericUserData;
  * Class that handle how the objects should collide.</br>
  * Use the class {@link GenericUserData} to handle each contacts
  * 
- * @author Bertrand
+ * @author Zulrage
  *
  */
 public class GameContactListener implements ContactListener, ContactFilter {
 
   @Override
   public void beginContact(Contact contact) {
-    // No need
+    // Nothing to do
   }
 
   @Override
   public void endContact(Contact contact) {
-    // No need
+    // Nothing to do
   }
 
   @Override
@@ -44,7 +44,7 @@ public class GameContactListener implements ContactListener, ContactFilter {
 
   @Override
   public void postSolve(Contact contact, ContactImpulse impulse) {
-
+    // Nothing to do
   }
 
   @Override

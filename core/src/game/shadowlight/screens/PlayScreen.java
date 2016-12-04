@@ -29,7 +29,6 @@ import game.shadowlight.entities.Leader;
 import game.shadowlight.entities.Level;
 import game.shadowlight.entities.collidable.GameContactListener;
 import game.shadowlight.entities.levelObjects.Box;
-import game.shadowlight.entities.levelObjects.MovableObject;
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.utils.GameParser;
 
@@ -73,7 +72,7 @@ public class PlayScreen implements Screen {
     for (Body body : tmpBodies)
       if (body.getUserData() instanceof GenericUserData) {
         GenericUserData data = (GenericUserData) body.getUserData();
-        if (!data.isToBeDestroyed()) {
+        if (!data.isDestroyable()) {
           Sprite sprite = data.getSprite();
           if (sprite != null) {
             sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2,
@@ -129,8 +128,6 @@ public class PlayScreen implements Screen {
 
     // Create player and set listeners
     player = new Leader(world, 0, 1, 1);
-    MovableObject object = new Box(world, 1, 1, 1, 1);
-    tmpBodies.add(object.getBody());
     Gdx.input.setInputProcessor(new InputMultiplexer(player, new InputAdapter() {
       @Override
       public boolean keyDown(int keycode) {
