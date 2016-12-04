@@ -28,7 +28,7 @@ public class GenericUserData {
 
   private int nbJump;
 
-  private boolean toBeDestroyed;
+  private boolean destroyable;
 
   public EnumUserDataId getId() {
     return id;
@@ -62,12 +62,12 @@ public class GenericUserData {
     this.offense = offense;
   }
 
-  public boolean isToBeDestroyed() {
-    return toBeDestroyed;
+  public boolean isDestroyable() {
+    return destroyable;
   }
 
-  public void setToBeDestroyed(boolean toBeDestroyed) {
-    this.toBeDestroyed = toBeDestroyed;
+  public void setDestroyable(boolean destroyable) {
+    this.destroyable = destroyable;
   }
 
   public ICollisionReaction getCollisionReaction() {

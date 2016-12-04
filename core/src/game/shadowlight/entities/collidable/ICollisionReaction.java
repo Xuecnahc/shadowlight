@@ -10,7 +10,7 @@ import game.shadowlight.entities.type.GenericUserData;
  * Interface to help handling collision within the {@link GenericUserData} when
  * the world step
  * 
- * @author Bertrand
+ * @author Zulrage
  *
  */
 public interface ICollisionReaction {

@@ -37,7 +37,7 @@ public class BoxCollisionReaction implements ICollisionReaction {
           boxDefense.getHealth() - otherData.getOffense().getDamage());
       boxDefense.setLastTimeDamaged(time);
       if(boxDefense.getHealth() <= 0) {
-        boxData.setToBeDestroyed(true);
+        boxData.setDestroyable(true);
       }
       System.out.println("Blop : " + boxData.getDefense().getHealth());
     }

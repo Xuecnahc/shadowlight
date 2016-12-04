@@ -97,14 +97,6 @@ public abstract class Adventurer extends InputAdapter {
     return false;
   }
 
-  public float getWidth() {
-    return WIDTH;
-  }
-
-  public float getHeight() {
-    return HEIGHT;
-  }
-
   public Body getBody() {
     return body;
   }

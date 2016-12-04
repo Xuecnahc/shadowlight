@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * Abstract class to create a {@link BodyType#DynamicBody DynamicBody}.
  * 
- * @author Bertrand
+ * @author Zulrage
  *
  */
 public abstract class MovableObject {
