@@ -1,8 +1,8 @@
-package game.shadowlight.entities;
+package game.shadowlight.entities.type;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import game.shadowlight.entities.type.EntityDestructable;
+import game.shadowlight.entities.collidable.ICollisionReaction;
 
 public class GenericUserData {
 
@@ -12,11 +12,15 @@ public class GenericUserData {
     this.destructability = destructability;
   }
 
+  private ICollisionReaction collisionReaction;
+  
   private EntityDestructable destructability;
 
   private String id;
 
   private Sprite sprite;
+  
+  private boolean toBeDestroyed;
 
   public String getId() {
     return id;
@@ -32,6 +36,22 @@ public class GenericUserData {
 
   public void setSprite(Sprite sprite) {
     this.sprite = sprite;
+  }
+
+  public EntityDestructable getDestructability() {
+    return destructability;
+  }
+
+  public void setDestructability(EntityDestructable destructability) {
+    this.destructability = destructability;
+  }
+
+  public boolean isToBeDestroyed() {
+    return toBeDestroyed;
+  }
+
+  public void setToBeDestroyed(boolean toBeDestroyed) {
+    this.toBeDestroyed = toBeDestroyed;
   }
 
 }

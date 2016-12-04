@@ -4,8 +4,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import game.shadowlight.entities.GenericUserData;
 import game.shadowlight.entities.type.EntityDestructable;
+import game.shadowlight.entities.type.GenericUserData;
 
 public class Box extends MovableObject {
 

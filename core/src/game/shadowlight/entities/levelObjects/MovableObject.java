@@ -3,13 +3,14 @@ package game.shadowlight.entities.levelObjects;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+
+import game.shadowlight.entities.type.GenericUserData;
+
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-
-import game.shadowlight.entities.GenericUserData;
 
 /**
  * Abstract class to create a {@link BodyType#DynamicBody DynamicBody}.
