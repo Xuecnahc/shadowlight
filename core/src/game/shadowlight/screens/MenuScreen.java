@@ -17,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import game.shadowlight.ShadowLightGame;
 import game.shadowlight.entities.levelObjects.Box;
@@ -33,7 +31,9 @@ public class MenuScreen extends ShadowLightScreen {
 	/**
 	 * Constructor
 	 *
-	 * @param shadowLightGame	Game of the application. Useful to change screen and get global parameters
+	 * @param shadowLightGame
+	 *            Game of the application. Useful to change screen and get
+	 *            global parameters
 	 */
 	public MenuScreen(ShadowLightGame shadowLightGame) {
 		super(shadowLightGame);
@@ -45,8 +45,8 @@ public class MenuScreen extends ShadowLightScreen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Draw the actors of the scene (mostly buttons)
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+		// Draw the actors of the scene (mostly buttons)
+		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
 	}
 
@@ -54,23 +54,23 @@ public class MenuScreen extends ShadowLightScreen {
 	public void show() {
 		world = new World(new Vector2(0, -9.81f), true);
 		batch = new SpriteBatch();
-	   
-		if(Gdx.app.getType() == ApplicationType.Desktop) {
+
+		if (Gdx.app.getType() == ApplicationType.Desktop) {
 			Gdx.graphics.setDisplayMode((int) (Gdx.graphics.getHeight() / 1.5f), Gdx.graphics.getHeight(), false);
 		}
-	    tmpBodies.add((new Box(world, 1f, 1f, 1f, 1f)).getBody());
+		tmpBodies.add((new Box(world, 1f, 1f, 1f, 1f)).getBody());
 
-	    stage = new Stage();
+		stage = new Stage();
 		InputMultiplexer multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(new InputAdapter() {
 
 			@Override
 			public boolean keyDown(int keycode) {
 				switch (keycode) {
-				case Keys.BACK:
-				case Keys.ESCAPE:
-					Gdx.app.exit();
-					break;
+					case Keys.BACK:
+					case Keys.ESCAPE:
+						Gdx.app.exit();
+						break;
 				}
 				return false;
 			}
@@ -80,7 +80,7 @@ public class MenuScreen extends ShadowLightScreen {
 		stage = new Stage();
 		multiplexer.addProcessor(stage);
 		skin = new Skin(Gdx.files.internal("ui/menuSkin.json"), new TextureAtlas("ui/atlas.pack"));
-		
+
 		createUI();
 
 		Gdx.input.setInputProcessor(multiplexer);
@@ -89,13 +89,13 @@ public class MenuScreen extends ShadowLightScreen {
 	private void createUI() {
 		table = new Table(skin);
 		table.setFillParent(true);
-		
+
 		Label titleLabel = new Label(GameStatics.GAME_NAME, skin);
-		
+
 		TextButton buttonPlay = new TextButton("Play", skin);
 
-		buttonPlay.padRight(Gdx.graphics.getWidth()/5);
-		buttonPlay.padLeft(Gdx.graphics.getWidth()/5);
+		buttonPlay.padRight(Gdx.graphics.getWidth() / 5);
+		buttonPlay.padLeft(Gdx.graphics.getWidth() / 5);
 		buttonPlay.addListener(new ClickListener() {
 
 			@Override
@@ -103,11 +103,11 @@ public class MenuScreen extends ShadowLightScreen {
 				game.setScreen(new PlayScreen());
 			}
 		});
-		
+
 		table.add(titleLabel).spaceBottom(25).row();
 		table.add(buttonPlay).spaceBottom(15).row();
-		
+
 		stage.addActor(table);
 	}
-	
+
 }
