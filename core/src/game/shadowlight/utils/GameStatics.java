@@ -9,13 +9,13 @@ import java.util.HashMap;
  *
  */
 public class GameStatics {
-	public static final HashMap<String, String> PATHS = new HashMap<String, String>() {
-		private static final long serialVersionUID = 1L;
-		{
-            put("levels","bin/levels/level%d.json");
-        }
-    };
-    
-    public static final String GAME_NAME ="Shadowlight";
+  public static final HashMap<String, String> PATHS = new HashMap<String, String>() {
+    private static final long serialVersionUID = 1L;
+    {
+      put("levels", "bin/levels/level%d.json");
+    }
+  };
+
+  public static final String GAME_NAME = "Shadowlight";
 
 }
