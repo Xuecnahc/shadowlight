@@ -2,31 +2,36 @@ package game.shadowlight.entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import game.shadowlight.entities.type.EntityDestructable;
+
 public class GenericUserData {
 
-	public GenericUserData(String id, Sprite sprite) {
-		this.id = id;
-		this.sprite = sprite;
-	}
+  public GenericUserData(String id, Sprite sprite, EntityDestructable destructability) {
+    this.id = id;
+    this.sprite = sprite;
+    this.destructability = destructability;
+  }
 
-	private String id;
+  private EntityDestructable destructability;
 
-	private Sprite sprite;
+  private String id;
 
-	public String getId() {
-		return id;
-	}
+  private Sprite sprite;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+  public String getId() {
+    return id;
+  }
 
-	public Sprite getSprite() {
-		return sprite;
-	}
+  public void setId(String id) {
+    this.id = id;
+  }
 
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
+  public Sprite getSprite() {
+    return sprite;
+  }
+
+  public void setSprite(Sprite sprite) {
+    this.sprite = sprite;
+  }
 
 }

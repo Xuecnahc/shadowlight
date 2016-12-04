@@ -11,6 +11,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.GenericUserData;
 
+/**
+ * Abstract class to create a {@link BodyType#DynamicBody DynamicBody}.
+ * 
+ * @author Bertrand
+ *
+ */
 public abstract class MovableObject {
 
   protected Body body;
