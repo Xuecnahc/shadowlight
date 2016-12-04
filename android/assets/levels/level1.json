@@ -1,14 +1,18 @@
 {
-   "box":[
+   "music": "no-music.flac",
+   "backgroundImg": "no-background",
+   "startPoint": {
+     "x":1,
+     "y":8
+   },
+   "boxes": [
       {
-         "type":"solid",
          "x":1,
          "y":1,
          "width":2,
          "height":2
       },
       {
-         "type":"solid",
          "x":0,
          "y":2,
          "width":1,
