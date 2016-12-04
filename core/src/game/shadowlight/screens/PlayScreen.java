@@ -127,7 +127,7 @@ public class PlayScreen implements Screen {
     }
 
     // Create player and set listeners
-    player = new Leader(world, 0, 1, 1);
+    player = new Leader(world, (float) level.getStartPoint().getX(), (float) level.getStartPoint().getY(), 1);
     Gdx.input.setInputProcessor(new InputMultiplexer(player, new InputAdapter() {
       @Override
       public boolean keyDown(int keycode) {
