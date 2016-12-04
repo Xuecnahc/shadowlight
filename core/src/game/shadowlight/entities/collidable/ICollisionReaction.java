@@ -15,8 +15,8 @@ import game.shadowlight.entities.type.GenericUserData;
  */
 public interface ICollisionReaction {
 
-	public boolean canCollide(Fixture fixtureA, Fixture fixtureB);
+  public boolean canCollide(Fixture fixtureA, Fixture fixtureB);
 
-	public void onCollide(Contact contact, Manifold oldManifold);
+  public void onCollide(Contact contact, Manifold oldManifold);
 
 }

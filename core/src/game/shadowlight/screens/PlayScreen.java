@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.Array;
 import game.shadowlight.entities.Adventurer;
 import game.shadowlight.entities.Leader;
 import game.shadowlight.entities.Level;
+import game.shadowlight.entities.collidable.GameContactListener;
 import game.shadowlight.entities.levelObjects.Box;
 import game.shadowlight.utils.GameParser;
 
@@ -116,8 +117,6 @@ public class PlayScreen implements Screen {
 
     // Create player and set listeners
     player = new Leader(world, 0, 1, 1);
-    world.setContactFilter(player);
-    world.setContactListener(player);
     Gdx.input.setInputProcessor(new InputMultiplexer(player, new InputAdapter() {
       @Override
       public boolean keyDown(int keycode) {
@@ -134,7 +133,8 @@ public class PlayScreen implements Screen {
         return true;
       }
     }));
-
+    createContactListener();
+    
     BodyDef bodyDef = new BodyDef();
     FixtureDef fixtureDef = new FixtureDef();
 
@@ -163,6 +163,12 @@ public class PlayScreen implements Screen {
     groundShape.dispose();
   }
 
+  private void createContactListener() {
+    GameContactListener contact = new GameContactListener();
+    world.setContactFilter(contact);
+    world.setContactListener(contact);
+  }
+  
   @Override
   public void hide() {
     dispose();
