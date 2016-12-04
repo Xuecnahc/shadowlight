@@ -5,8 +5,9 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.collidable.BoxCollisionReaction;
-import game.shadowlight.entities.type.EntityDestructable;
+import game.shadowlight.entities.type.DefensiveProperties;
 import game.shadowlight.entities.type.GenericUserData;
+import game.shadowlight.entities.type.OffensiveProperties;
 import game.shadowlight.utils.EnumUserDataId;
 
 public class Box extends MovableObject {
@@ -28,8 +29,8 @@ public class Box extends MovableObject {
 
   @Override
   protected GenericUserData getUserData() {
-    return new GenericUserData(EnumUserDataId.BOX, null, new EntityDestructable(true, 10, 1),
-        new BoxCollisionReaction());
+    return new GenericUserData(EnumUserDataId.BOX, null, new OffensiveProperties(false, 0),
+        new DefensiveProperties(true, 3, 1000), new BoxCollisionReaction());
   }
 
   @Override

@@ -1,8 +1,8 @@
 package game.shadowlight.entities.type;
 
-public class EntityDestructable {
+public class DefensiveProperties {
 
-  public EntityDestructable(boolean isVulnerable, int health, long invulnerabilityTime) {
+  public DefensiveProperties(boolean isVulnerable, int health, long invulnerabilityTime) {
     this.isVulnerable = isVulnerable;
     this.health = health;
     this.invulnerabilityTime = invulnerabilityTime;
@@ -13,6 +13,8 @@ public class EntityDestructable {
   private int health;
 
   private long invulnerabilityTime;
+
+  private long lastTimeDamaged;
 
   public boolean isVulnerable() {
     return isVulnerable;
@@ -36,6 +38,14 @@ public class EntityDestructable {
 
   public void setInvulnerabilityTime(long invulnerabilityTime) {
     this.invulnerabilityTime = invulnerabilityTime;
+  }
+
+  public long getLastTimeDamaged() {
+    return lastTimeDamaged;
+  }
+
+  public void setLastTimeDamaged(long lastTimeDamaged) {
+    this.lastTimeDamaged = lastTimeDamaged;
   }
 
 }
