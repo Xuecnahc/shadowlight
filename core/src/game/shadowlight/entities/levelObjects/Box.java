@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.GenericUserData;
+import game.shadowlight.entities.type.EntityDestructable;
 
 public class Box extends MovableObject {
 
@@ -25,7 +26,7 @@ public class Box extends MovableObject {
 
   @Override
   protected GenericUserData getUserData() {
-    return new GenericUserData("box", null);
+    return new GenericUserData("box", null, new EntityDestructable(true, 10, 1));
   }
 
   @Override
