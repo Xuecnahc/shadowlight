@@ -15,5 +15,7 @@ public class GameStatics {
             put("levels","bin/levels/level%d.json");
         }
     };
+    
+    public static final String GAME_NAME ="Shadowlight";
 
 }
