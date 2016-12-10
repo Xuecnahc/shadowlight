@@ -2,7 +2,6 @@ package game.shadowlight.weapons;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
@@ -10,16 +9,17 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.utils.Direction;
+import game.shadowlight.world.PlayWorld;
 
 public abstract class MeleeWeapon extends WeaponEntity {
 
   protected float appearTime;
 
-  public MeleeWeapon(World world) {
+  public MeleeWeapon(PlayWorld world) {
     this(world, false);
   }
 
-  public MeleeWeapon(World world, boolean isAlly) {
+  public MeleeWeapon(PlayWorld world, boolean isAlly) {
     super(world, isAlly);
     this.appearTime = this.getAppearTime();
   }

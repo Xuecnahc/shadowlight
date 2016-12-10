@@ -1,23 +1,23 @@
 package game.shadowlight.weapons;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.utils.Direction;
+import game.shadowlight.world.PlayWorld;
 
 public abstract class RangedWeapon extends WeaponEntity {
 
   protected float appearTime;
 
-  public RangedWeapon(World world) {
+  public RangedWeapon(PlayWorld world) {
     this(world, false);
   }
 
-  public RangedWeapon(World world, boolean isAlly) {
+  public RangedWeapon(PlayWorld world, boolean isAlly) {
     super(world, isAlly);
     this.appearTime = this.getAppearTime();
   }

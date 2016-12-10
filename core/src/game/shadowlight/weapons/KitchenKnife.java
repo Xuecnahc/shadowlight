@@ -1,15 +1,16 @@
 package game.shadowlight.weapons;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+
+import game.shadowlight.world.PlayWorld;
 
 public class KitchenKnife extends RangedWeapon {
 
-  public KitchenKnife(World world) {
+  public KitchenKnife(PlayWorld world) {
     super(world);
   }
 
-  public KitchenKnife(World world, boolean isAlly) {
+  public KitchenKnife(PlayWorld world, boolean isAlly) {
     super(world, isAlly);
   }
 

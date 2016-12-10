@@ -3,13 +3,15 @@ package game.shadowlight.weapons;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import game.shadowlight.world.PlayWorld;
+
 public class Gourdin extends MeleeWeapon {
 
-  public Gourdin(World world) {
+  public Gourdin(PlayWorld world) {
     super(world);
   }
 
-  public Gourdin(World world, boolean isAlly) {
+  public Gourdin(PlayWorld world, boolean isAlly) {
     super(world, isAlly);
   }
 

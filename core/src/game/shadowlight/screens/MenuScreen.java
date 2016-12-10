@@ -8,8 +8,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -19,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import game.shadowlight.ShadowLightGame;
-import game.shadowlight.entities.levelObjects.Box;
 import game.shadowlight.utils.GameStatics;
 
 public class MenuScreen extends ShadowLightScreen {
@@ -52,13 +49,11 @@ public class MenuScreen extends ShadowLightScreen {
 
 	@Override
 	public void show() {
-		world = new World(new Vector2(0, -9.81f), true);
 		batch = new SpriteBatch();
 
 		if (Gdx.app.getType() == ApplicationType.Desktop) {
 			Gdx.graphics.setDisplayMode((int) (Gdx.graphics.getHeight() / 1.5f), Gdx.graphics.getHeight(), false);
 		}
-		tmpBodies.add((new Box(world, 1f, 1f, 1f, 1f)).getBody());
 
 		stage = new Stage();
 		InputMultiplexer multiplexer = new InputMultiplexer();

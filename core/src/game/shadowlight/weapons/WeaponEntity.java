@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.collidable.WeaponCollisionReaction;
 import game.shadowlight.entities.type.DefensiveProperties;
@@ -14,9 +13,10 @@ import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.entities.type.OffensiveProperties;
 import game.shadowlight.utils.Direction;
 import game.shadowlight.utils.EnumUserDataId;
+import game.shadowlight.world.PlayWorld;
 
 public abstract class WeaponEntity {
-  protected World world;
+  protected PlayWorld world;
 
   protected Vector2 position;
   protected Vector2 size;
@@ -30,11 +30,11 @@ public abstract class WeaponEntity {
   protected long cooldown;
   protected long lastAttackTime = 0;
 
-  public WeaponEntity(World world) {
+  public WeaponEntity(PlayWorld world) {
     this(world, false);
   }
 
-  public WeaponEntity(World world, boolean isAlly) {
+  public WeaponEntity(PlayWorld world, boolean isAlly) {
     this.cooldown = this.getAttackCooldown();
     this.world = world;
     this.size = this.initSize();

@@ -1,14 +1,14 @@
 package game.shadowlight.entities;
 
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.utils.Direction;
+import game.shadowlight.world.PlayWorld;
 
 public class Leader extends Adventurer {
 
-  public Leader(World world, float x, float y, float width) {
+  public Leader(PlayWorld world, float x, float y, float width) {
     super(world, x, y, width);
   }
 
