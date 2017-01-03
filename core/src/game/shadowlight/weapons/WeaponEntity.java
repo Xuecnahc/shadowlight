@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.TimeUtils;
 
 import game.shadowlight.entities.collidable.WeaponCollisionReaction;
 import game.shadowlight.entities.type.DefensiveProperties;
@@ -49,22 +48,7 @@ public abstract class WeaponEntity {
     this.expectedRange = this.getRange();
   }
 
-  public void attack(Body attackerBody, float attackerWidth, float attackerHeight, Direction direction) {
-    long currentAttackTime = TimeUtils.millis();
-    if (currentAttackTime <= this.lastAttackTime + cooldown) {
-      return;
-    }
-    this.lastAttackTime = currentAttackTime;
-
-    final Vector2 anchorPosition = this.getAnchorPosition(attackerWidth, attackerHeight, direction);
-    final Vector2 attackerPos = attackerBody.getPosition();
-    final Vector2 position = new Vector2(attackerPos.x + anchorPosition.x, attackerPos.y + anchorPosition.y);
-    final Body weaponBody = this.world.createBody(this.initBodyDef(position));
-    weaponBody.createFixture(this.fixtureDef);
-    weaponBody.setUserData(this.userData);
-
-    this.doAttackMove(weaponBody, direction, attackerBody);
-  }
+  public abstract void attack(Body attackerBody, float attackerWidth, float attackerHeight, Direction direction);
 
   protected Vector2 getAnchorPosition(float attackerWidth, float attackerHeight, Direction direction) {
     switch (direction) {
