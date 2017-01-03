@@ -5,7 +5,7 @@ public class DefensiveProperties {
   private int health;
   private long invulnerabilityTime;
   private long lastTimeDamaged;
-  
+
   public DefensiveProperties() {
     this(true, 1, 0);
   }

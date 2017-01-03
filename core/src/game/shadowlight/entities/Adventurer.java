@@ -36,7 +36,7 @@ public abstract class Adventurer extends InputAdapter {
   public Adventurer(World world, float x, float y, float width) {
     WIDTH = width;
     HEIGHT = width * 2;
-    
+
     BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyType.DynamicBody;
     bodyDef.position.set(x, y);
@@ -55,7 +55,7 @@ public abstract class Adventurer extends InputAdapter {
     body.setUserData(new GenericUserData(EnumUserDataId.PLAYER, null, new OffensiveProperties(),
         new DefensiveProperties(true, 10, 1), new PlayerCollisionReaction()));
     fixture = body.createFixture(fixtureDef);
-    
+
     this.weapon = new Gourdin(world, true);
   }
 
