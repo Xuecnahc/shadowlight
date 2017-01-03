@@ -29,7 +29,7 @@ public class Box extends MovableObject {
 
   @Override
   protected GenericUserData getUserData() {
-    return new GenericUserData(EnumUserDataId.BOX, null, new OffensiveProperties(false, 0),
+    return new GenericUserData(EnumUserDataId.BOX, null, new OffensiveProperties(),
         new DefensiveProperties(true, 3, 1000), new BoxCollisionReaction());
   }
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.type.GenericUserData;
+import game.shadowlight.utils.Direction;
 
 public class Leader extends Adventurer {
 
@@ -14,13 +15,32 @@ public class Leader extends Adventurer {
   @Override
   public boolean keyDown(int keycode) {
     switch (keycode) {
+      // Attack
+      case Keys.A:
+        this.weapon.attack(this.body, this.WIDTH, this.HEIGHT, this.facedDirection);
+        break;
       case Keys.LEFT:
+        this.facedDirection = Direction.LEFT;
+        if (this.direction != Direction.UP && this.direction != Direction.DOWN) {
+          this.direction = Direction.LEFT;
+        }
+        
         velocity.x = -speed / 10;
         break;
       case Keys.RIGHT:
+        this.facedDirection = Direction.RIGHT;
+        if (this.direction != Direction.UP && this.direction != Direction.DOWN) {
+          this.direction = Direction.RIGHT;
+        }
+
         velocity.x = speed / 10;
         break;
-      // TODO Apply number of jump reset when touch the ground
+      case Keys.UP:
+        this.direction = Direction.UP;
+        break;
+      case Keys.DOWN:
+        this.direction = Direction.DOWN;
+        break;
       case Keys.SPACE:
         GenericUserData data = (GenericUserData) body.getUserData();
         data.setNbJump(data.getNbJump() + 1);

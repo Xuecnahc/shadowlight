@@ -17,6 +17,9 @@ import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.entities.type.OffensiveProperties;
 import game.shadowlight.jobs.Job;
 import game.shadowlight.utils.EnumUserDataId;
+import game.shadowlight.weapons.Gourdin;
+import game.shadowlight.weapons.WeaponEntity;
+import game.shadowlight.utils.Direction;
 
 public abstract class Adventurer extends InputAdapter {
 
@@ -26,6 +29,9 @@ public abstract class Adventurer extends InputAdapter {
   protected Vector2 velocity = new Vector2();
   protected float jumpPower = 20, speed = 500, maxSpeed = 8, maxJump = 2, nbJump = 1;
   protected Job job;
+  protected Direction direction = Direction.LEFT;
+  protected Direction facedDirection = Direction.LEFT;
+  protected WeaponEntity weapon;
 
   public Adventurer(World world, float x, float y, float width) {
     WIDTH = width;
@@ -46,9 +52,11 @@ public abstract class Adventurer extends InputAdapter {
     fixtureDef.density = 1f;
 
     body = world.createBody(bodyDef);
-    body.setUserData(new GenericUserData(EnumUserDataId.PLAYER, null, new OffensiveProperties(false, 1),
+    body.setUserData(new GenericUserData(EnumUserDataId.PLAYER, null, new OffensiveProperties(),
         new DefensiveProperties(true, 10, 1), new PlayerCollisionReaction()));
     fixture = body.createFixture(fixtureDef);
+
+    this.weapon = new Gourdin(world, true);
   }
 
   public void update() {
@@ -93,6 +101,8 @@ public abstract class Adventurer extends InputAdapter {
         }
         return true;
       }
+    } else if (keycode == Keys.UP || keycode == Keys.DOWN) {
+      this.direction = facedDirection;
     }
     return false;
   }
