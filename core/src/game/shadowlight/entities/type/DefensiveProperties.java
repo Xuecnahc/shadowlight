@@ -1,20 +1,20 @@
 package game.shadowlight.entities.type;
 
 public class DefensiveProperties {
+  private boolean isVulnerable;
+  private int health;
+  private long invulnerabilityTime;
+  private long lastTimeDamaged;
+  
+  public DefensiveProperties() {
+    this(true, 1, 0);
+  }
 
   public DefensiveProperties(boolean isVulnerable, int health, long invulnerabilityTime) {
     this.isVulnerable = isVulnerable;
     this.health = health;
     this.invulnerabilityTime = invulnerabilityTime;
   }
-
-  private boolean isVulnerable;
-
-  private int health;
-
-  private long invulnerabilityTime;
-
-  private long lastTimeDamaged;
 
   public boolean isVulnerable() {
     return isVulnerable;

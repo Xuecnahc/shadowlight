@@ -9,5 +9,5 @@ import game.shadowlight.entities.type.GenericUserData;
  *
  */
 public enum EnumUserDataId {
-	PLAYER, BOX, LEVEL;
+	PLAYER, BOX, WEAPON, LEVEL;
 }

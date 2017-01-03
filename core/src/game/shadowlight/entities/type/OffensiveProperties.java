@@ -1,15 +1,17 @@
 package game.shadowlight.entities.type;
 
 public class OffensiveProperties {
+  private boolean wounding;
+  private int damage;
 
-  public OffensiveProperties(boolean wounding, int damage) {
-    this.wounding = wounding;
+  public OffensiveProperties() {
+    this(0);
+  }
+ 
+  public OffensiveProperties(int damage) {
+    this.wounding = damage > 0;
     this.damage = damage;
   }
-
-  private boolean wounding;
-
-  private int damage;
 
   public boolean isWounding() {
     return wounding;
