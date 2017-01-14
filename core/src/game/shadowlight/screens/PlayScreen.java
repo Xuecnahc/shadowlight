@@ -31,6 +31,7 @@ import game.shadowlight.entities.Monster;
 import game.shadowlight.entities.collidable.GameContactListener;
 import game.shadowlight.entities.levelObjects.Box;
 import game.shadowlight.entities.type.GenericUserData;
+import game.shadowlight.entities.type.IMovable;
 import game.shadowlight.entities.type.IObserver;
 import game.shadowlight.utils.GameParser;
 import game.shadowlight.world.PlayWorld;
@@ -89,10 +90,14 @@ public class PlayScreen implements Screen {
         }
       }
     batch.end();
+
     for (IObserver observer : playWorld.getObservers()) {
       observer.observe();
     }
 
+    for (IMovable movable : playWorld.getMovable()) {
+      movable.move();
+    }
     debugRenderer.render(playWorld.getWorld(), camera.combined);
 
   }

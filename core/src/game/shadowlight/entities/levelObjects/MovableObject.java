@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
-import game.shadowlight.entities.type.AbstractMovable;
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.world.PlayWorld;
 
@@ -18,7 +17,7 @@ import game.shadowlight.world.PlayWorld;
  * @author Zulrage
  *
  */
-public abstract class MovableObject extends AbstractMovable {
+public abstract class MovableObject {
 
   protected Body body;
   protected Fixture fixture;

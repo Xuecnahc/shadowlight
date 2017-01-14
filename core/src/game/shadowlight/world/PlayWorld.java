@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 
 import game.shadowlight.entities.Adventurer;
+import game.shadowlight.entities.type.IMovable;
 import game.shadowlight.entities.type.IObserver;
 
 public class PlayWorld {
@@ -19,6 +20,8 @@ public class PlayWorld {
   private List<Adventurer> players = new ArrayList<Adventurer>();
 
   private List<IObserver> observers = new ArrayList<IObserver>();
+  
+  private List<IMovable> movable = new ArrayList<IMovable>();
 
   public PlayWorld(World world) {
     this.world = world;
@@ -46,6 +49,10 @@ public class PlayWorld {
 
   public void destroyBody(Body body) {
     world.destroyBody(body);
+  }
+
+    public List<IMovable> getMovable() {
+    return movable;
   }
 
 }

@@ -37,9 +37,4 @@ public class Box extends MovableObject {
     return "Box [width: " + this.width + "height" + this.height + "x" + this.x + "y" + this.y;
   }
 
-  @Override
-  public void move() {
-    // Do nothing
-  }
-
 }

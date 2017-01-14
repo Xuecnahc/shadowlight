@@ -1,5 +1,6 @@
 package game.shadowlight.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
 
@@ -7,18 +8,23 @@ import game.shadowlight.entities.collidable.BoxCollisionReaction;
 import game.shadowlight.entities.levelObjects.MovableObject;
 import game.shadowlight.entities.type.DefensiveProperties;
 import game.shadowlight.entities.type.GenericUserData;
+import game.shadowlight.entities.type.IMovable;
 import game.shadowlight.entities.type.IObserver;
 import game.shadowlight.entities.type.OffensiveProperties;
 import game.shadowlight.utils.EnumUserDataId;
 import game.shadowlight.world.PlayWorld;
 
-public class Monster extends MovableObject implements IObserver {
+public class Monster extends MovableObject implements IObserver, IMovable {
 
+  // Visibility properties
   protected boolean faceRight;
   protected boolean alertState = false;
-  protected float visibilityRangeFront = 10, visibilityRangeBack = 0;
-  protected float alertVisibilityRangeFront = 15, alertVisibilityRangeBack = 2;
-  protected long timeBetweenAttacks = 1000;
+  protected float visibilityRangeFront = 5, visibilityRangeBack = 0;
+  protected float alertVisibilityRangeFront = 10, alertVisibilityRangeBack = 2;
+
+  // Move properties
+  protected Vector2 velocity = new Vector2();
+  protected float jumpPower = 20, speed = 200, maxSpeed = 4, maxJump = 2, nbJump = 1;
 
   public Monster(float x, float y, float width, float height, boolean faceRight) {
     super(x, y, width, height);
@@ -46,20 +52,13 @@ public class Monster extends MovableObject implements IObserver {
   public void setWorld(PlayWorld world) {
     super.setWorld(world);
     world.getObservers().add(this);
+    world.getMovable().add(this);
   }
 
   @Override
   protected GenericUserData getUserData() {
     return new GenericUserData(EnumUserDataId.BOX, null, new OffensiveProperties(),
         new DefensiveProperties(true, 3, 1000), new BoxCollisionReaction());
-  }
-
-  @Override
-  public String toString() {
-    return "Monster [faceRight=" + faceRight + ", alertState=" + alertState + ", visibilityRangeFront="
-        + visibilityRangeFront + ", visibilityRangeBack=" + visibilityRangeBack + ", alertVisibilityRangeFront="
-        + alertVisibilityRangeFront + ", alertVisibilityRangeBack=" + alertVisibilityRangeBack + ", timeBetweenAttacks="
-        + timeBetweenAttacks + "]";
   }
 
   @Override
@@ -76,18 +75,23 @@ public class Monster extends MovableObject implements IObserver {
   }
 
   private boolean seePlayer() {
+    float visibilityFront = alertState ? alertVisibilityRangeFront : visibilityRangeFront;
+    float visibilityBack = alertState ? alertVisibilityRangeBack : visibilityRangeBack;
     for (Adventurer adventurer : world.getPlayers()) {
       float playerPosition = adventurer.getBody().getPosition().x;
-      float visibilityFront = alertState ? alertVisibilityRangeFront : visibilityRangeFront;
-      float visibilityBack = alertState ? alertVisibilityRangeBack : visibilityRangeBack;
       if (playerPosition > body.getPosition().x
           && playerPosition < body.getPosition().x + (faceRight ? visibilityFront : visibilityBack)) {
+        velocity.x = speed;
+        faceRight = true;
         return true;
       } else if (playerPosition <= body.getPosition().x
           && playerPosition >= body.getPosition().x - (!faceRight ? visibilityFront : visibilityBack)) {
+        velocity.x = -speed;
+        faceRight = false;
         return true;
       }
     }
+    velocity.x = 0;
     return false;
   }
 }
