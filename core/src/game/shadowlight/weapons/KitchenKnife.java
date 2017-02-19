@@ -35,11 +35,11 @@ public class KitchenKnife extends RangedWeapon {
 
   @Override
   protected float getMaxRange() {
-    return 3;
+    return 5;
   }
 
   @Override
   protected float getRange() {
-    return 2;
+    return 3;
   }
 }
