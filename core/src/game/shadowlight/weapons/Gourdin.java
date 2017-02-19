@@ -1,7 +1,6 @@
 package game.shadowlight.weapons;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.world.PlayWorld;
 
@@ -26,7 +25,7 @@ public class Gourdin extends MeleeWeapon {
   }
 
   @Override
-  protected long getAttackCooldown() {
+  public long getAttackCooldown() {
     return 1000;
   }
 

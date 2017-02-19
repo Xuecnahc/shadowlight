@@ -33,6 +33,7 @@ import game.shadowlight.entities.levelObjects.Box;
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.entities.type.IMovable;
 import game.shadowlight.entities.type.IObserver;
+import game.shadowlight.utils.EnumUserDataId;
 import game.shadowlight.utils.GameParser;
 import game.shadowlight.world.PlayWorld;
 
@@ -85,8 +86,13 @@ public class PlayScreen implements Screen {
             sprite.draw(batch);
           }
         } else {
+          if(data.getId().equals(EnumUserDataId.BOX)){
+            System.out.println("Blop?");
+          }
           playWorld.getWorld().destroyBody(body);
           tmpBodies.removeValue(body, true);
+          body.setUserData(null);
+          body = null;
         }
       }
     batch.end();
@@ -136,9 +142,11 @@ public class PlayScreen implements Screen {
       box.setWorld(playWorld);
       tmpBodies.add(box.getBody());
     }
-
+    
+    //TODO Remove this
     Monster monster = new Monster(2, 2, 1, 1, true);
     monster.setWorld(playWorld);
+    tmpBodies.add(monster.getBody());
     // Create player and set listeners
     player = new Leader(playWorld, (float) level.getStartPoint().getX(), (float) level.getStartPoint().getY(), 1);
     playWorld.getPlayers().add(player);
@@ -147,6 +155,8 @@ public class PlayScreen implements Screen {
       public boolean keyDown(int keycode) {
         switch (keycode) {
           case Keys.ESCAPE:
+            break;
+          default:
             break;
         }
         return false;

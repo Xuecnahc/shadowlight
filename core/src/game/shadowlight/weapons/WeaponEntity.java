@@ -26,6 +26,11 @@ public abstract class WeaponEntity {
 
   protected float expectedRange;
   protected float maxRange;
+  
+  /**
+   * For monsters
+   */
+  protected float blockingTime;
 
   protected long cooldown;
   protected long lastAttackTime = 0;
@@ -85,15 +90,21 @@ public abstract class WeaponEntity {
     return fixtureDef;
   }
 
-  protected abstract long getAttackCooldown();
+  public long getLastAttackTime() {
+    return lastAttackTime;
+  }
+
+  public abstract long getAttackCooldown();
+
+  public abstract float getRange();
 
   protected abstract Vector2 initSize();
 
   protected abstract int getDamages();
 
   protected abstract float getMaxRange();
-
-  protected abstract float getRange();
+  
+  public abstract float getBlockingTime();
 
   protected abstract void doAttackMove(Body body, Direction direction, Body attackerBody);
 

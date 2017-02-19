@@ -3,6 +3,7 @@ package game.shadowlight.entities;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import game.shadowlight.entities.collidable.BoxCollisionReaction;
 import game.shadowlight.entities.levelObjects.MovableObject;
@@ -11,7 +12,10 @@ import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.entities.type.IMovable;
 import game.shadowlight.entities.type.IObserver;
 import game.shadowlight.entities.type.OffensiveProperties;
+import game.shadowlight.utils.Direction;
 import game.shadowlight.utils.EnumUserDataId;
+import game.shadowlight.weapons.Gourdin;
+import game.shadowlight.weapons.WeaponEntity;
 import game.shadowlight.world.PlayWorld;
 
 public class Monster extends MovableObject implements IObserver, IMovable {
@@ -22,13 +26,16 @@ public class Monster extends MovableObject implements IObserver, IMovable {
   protected float visibilityRangeFront = 5, visibilityRangeBack = 0;
   protected float alertVisibilityRangeFront = 10, alertVisibilityRangeBack = 2;
 
+  protected boolean isAttacking = false;
+
   // Move properties
   protected Vector2 velocity = new Vector2();
   protected float jumpPower = 20, speed = 200, maxSpeed = 4, maxJump = 2, nbJump = 1;
 
+  protected WeaponEntity weapon;
+
   public Monster(float x, float y, float width, float height, boolean faceRight) {
-    super(x, y, width, height);
-    this.faceRight = faceRight;
+    this(x, y, width, height, faceRight, false);
   }
 
   public Monster(float x, float y, float width, float height, boolean faceRight, boolean alertState) {
@@ -53,6 +60,7 @@ public class Monster extends MovableObject implements IObserver, IMovable {
     super.setWorld(world);
     world.getObservers().add(this);
     world.getMovable().add(this);
+    this.weapon = new Gourdin(world, true);
   }
 
   @Override
@@ -81,17 +89,38 @@ public class Monster extends MovableObject implements IObserver, IMovable {
       float playerPosition = adventurer.getBody().getPosition().x;
       if (playerPosition > body.getPosition().x
           && playerPosition < body.getPosition().x + (faceRight ? visibilityFront : visibilityBack)) {
-        velocity.x = speed;
-        faceRight = true;
+        moveAndAct(true, playerPosition - body.getPosition().x);
         return true;
       } else if (playerPosition <= body.getPosition().x
           && playerPosition >= body.getPosition().x - (!faceRight ? visibilityFront : visibilityBack)) {
-        velocity.x = -speed;
-        faceRight = false;
+        moveAndAct(false, body.getPosition().x - playerPosition);
         return true;
       }
     }
     velocity.x = 0;
     return false;
   }
+
+  private void moveAndAct(boolean moveRight, float absoluteDistance) {
+    if (isAttacking) {
+      // During an attack
+      if (TimeUtils.millis() <= weapon.getLastAttackTime() + ((long) weapon.getBlockingTime() * 1000)) {
+        // During animation
+        return;
+      }
+      
+      isAttacking = false;
+    } else {
+      if (weapon.getRange() > absoluteDistance) {
+        // Can attack
+        isAttacking = true;
+        velocity.x = 0;
+        weapon.attack(this.body, this.width, this.height, moveRight ? Direction.RIGHT : Direction.LEFT);
+      } else {
+        velocity.x = speed * (moveRight ? 1 : -1);
+        faceRight = moveRight;
+      }
+    }
+  }
+
 }
