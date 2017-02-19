@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
@@ -33,7 +34,6 @@ import game.shadowlight.entities.levelObjects.Box;
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.entities.type.IMovable;
 import game.shadowlight.entities.type.IObserver;
-import game.shadowlight.utils.EnumUserDataId;
 import game.shadowlight.utils.GameParser;
 import game.shadowlight.world.PlayWorld;
 
@@ -86,12 +86,13 @@ public class PlayScreen implements Screen {
             sprite.draw(batch);
           }
         } else {
-          if(data.getId().equals(EnumUserDataId.BOX)){
-            System.out.println("Blop?");
+          Array<JointEdge> jointEdges = body.getJointList();
+          while (jointEdges.size > 0) {
+            playWorld.getWorld().destroyJoint(jointEdges.get(0).joint);
           }
-          playWorld.getWorld().destroyBody(body);
-          tmpBodies.removeValue(body, true);
           body.setUserData(null);
+          playWorld.destroyBody(body);
+          tmpBodies.removeValue(body, true);
           body = null;
         }
       }
@@ -105,7 +106,7 @@ public class PlayScreen implements Screen {
       movable.move();
     }
     debugRenderer.render(playWorld.getWorld(), camera.combined);
-
+  //  debugRenderer.setDrawJoints(false);
   }
 
   @Override

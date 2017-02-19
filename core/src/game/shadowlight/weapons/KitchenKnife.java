@@ -20,13 +20,18 @@ public class KitchenKnife extends RangedWeapon {
   }
 
   @Override
+  public float getRange() {
+    return 3;
+  }
+  
+  @Override
+  public long getAttackCooldown() {
+    return 500;
+  }
+  
+  @Override
   protected int getDamages() {
     return 1;
-  }
-
-  @Override
-  protected long getAttackCooldown() {
-    return 500;
   }
 
   @Override
@@ -37,10 +42,5 @@ public class KitchenKnife extends RangedWeapon {
   @Override
   protected float getMaxRange() {
     return 5;
-  }
-
-  @Override
-  protected float getRange() {
-    return 3;
   }
 }
