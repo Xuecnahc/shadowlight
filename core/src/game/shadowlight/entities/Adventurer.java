@@ -16,10 +16,10 @@ import game.shadowlight.entities.type.DefensiveProperties;
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.entities.type.OffensiveProperties;
 import game.shadowlight.jobs.Job;
-import game.shadowlight.utils.EnumUserDataId;
-import game.shadowlight.weapons.Gourdin;
-import game.shadowlight.weapons.WeaponEntity;
 import game.shadowlight.utils.Direction;
+import game.shadowlight.utils.EnumUserDataId;
+import game.shadowlight.weapons.KitchenKnife;
+import game.shadowlight.weapons.WeaponEntity;
 
 public abstract class Adventurer extends InputAdapter {
 
@@ -56,7 +56,7 @@ public abstract class Adventurer extends InputAdapter {
         new DefensiveProperties(true, 10, 1), new PlayerCollisionReaction()));
     fixture = body.createFixture(fixtureDef);
 
-    this.weapon = new Gourdin(world, true);
+    this.weapon = new KitchenKnife(world, true);
   }
 
   public void update() {
