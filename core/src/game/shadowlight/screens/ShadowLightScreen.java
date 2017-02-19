@@ -3,7 +3,6 @@
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import game.shadowlight.ShadowLightGame;
@@ -11,7 +10,6 @@ import game.shadowlight.ShadowLightGame;
 public class ShadowLightScreen implements Screen {
 	
 	protected ShadowLightGame game;
-	protected World world;
 	protected SpriteBatch batch;
 	protected Array<Body> tmpBodies = new Array<Body>();
 
@@ -47,7 +45,6 @@ public class ShadowLightScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		world.dispose();
 	}
 	
 	public ShadowLightGame getGame() {

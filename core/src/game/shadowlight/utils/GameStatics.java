@@ -17,5 +17,7 @@ public class GameStatics {
   };
 
   public static final String GAME_NAME = "Shadowlight";
+  
+  public static final float RANGED_WEAPON_BASE_BLOCKING_TIME = 0.5f;
 
 }

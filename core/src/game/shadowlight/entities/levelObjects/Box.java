@@ -2,7 +2,6 @@ package game.shadowlight.entities.levelObjects;
 
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.collidable.BoxCollisionReaction;
 import game.shadowlight.entities.type.DefensiveProperties;
@@ -12,8 +11,8 @@ import game.shadowlight.utils.EnumUserDataId;
 
 public class Box extends MovableObject {
 
-  public Box(World world, float x, float y, float width, float height) {
-    super(world, x, y, width, height);
+  public Box(float x, float y, float width, float height) {
+    super(x, y, width, height);
   }
 
   @Override

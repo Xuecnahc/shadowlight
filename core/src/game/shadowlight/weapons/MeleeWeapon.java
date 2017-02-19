@@ -2,7 +2,6 @@ package game.shadowlight.weapons;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
@@ -10,16 +9,17 @@ import com.badlogic.gdx.utils.Timer.Task;
 
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.utils.Direction;
+import game.shadowlight.world.PlayWorld;
 
 public abstract class MeleeWeapon extends WeaponEntity {
 
   protected float appearTime;
 
-  public MeleeWeapon(World world) {
+  public MeleeWeapon(PlayWorld world) {
     this(world, false);
   }
 
-  public MeleeWeapon(World world, boolean isAlly) {
+  public MeleeWeapon(PlayWorld world, boolean isAlly) {
     super(world, isAlly);
     this.appearTime = this.getAppearTime();
   }
@@ -35,20 +35,19 @@ public abstract class MeleeWeapon extends WeaponEntity {
     joinDef.motorSpeed = 0;
     joinDef.maxMotorTorque = 1f;
     joinDef.enableLimit = true;
-    
+
     if (anchorPos.x > 0) {
       joinDef.lowerAngle = 0.5f;
-      joinDef.upperAngle = 1; 
+      joinDef.upperAngle = 1;
     } else {
       joinDef.lowerAngle = -1;
-      joinDef.upperAngle = -0.5f; 
+      joinDef.upperAngle = -0.5f;
     }
-    
 
     this.world.createJoint(joinDef);
     return joinDef;
   }
-  
+
   @Override
   public void attack(Body attackerBody, float attackerWidth, float attackerHeight, Direction direction) {
     long currentAttackTime = TimeUtils.millis();
@@ -71,13 +70,12 @@ public abstract class MeleeWeapon extends WeaponEntity {
   @Override
   protected void doAttackMove(final Body body, Direction direction, Body attackerBody) {
     body.applyAngularImpulse(this.getAngularImpulse(direction), false);
-    final GenericUserData userData = (GenericUserData) body.getUserData();
     Timer.schedule(new Task() {
 
       @Override
       public void run() {
         world.destroyBody(body);
-        userData.setDestroyable(true);
+        body.setUserData(null);
       }
     }, this.getAppearTime());
   }
@@ -88,7 +86,7 @@ public abstract class MeleeWeapon extends WeaponEntity {
   }
 
   @Override
-  protected float getRange() {
+  public float getRange() {
     return this.size.y;
   }
 
@@ -104,6 +102,11 @@ public abstract class MeleeWeapon extends WeaponEntity {
       default:
         return 1;
     }
+  }
+
+  @Override
+  public float getBlockingTime() {
+    return getAppearTime();
   }
 
 }

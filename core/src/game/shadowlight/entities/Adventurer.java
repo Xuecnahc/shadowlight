@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 
 import game.shadowlight.entities.collidable.PlayerCollisionReaction;
 import game.shadowlight.entities.type.DefensiveProperties;
@@ -20,6 +19,7 @@ import game.shadowlight.utils.Direction;
 import game.shadowlight.utils.EnumUserDataId;
 import game.shadowlight.weapons.KitchenKnife;
 import game.shadowlight.weapons.WeaponEntity;
+import game.shadowlight.world.PlayWorld;
 
 public abstract class Adventurer extends InputAdapter {
 
@@ -33,7 +33,7 @@ public abstract class Adventurer extends InputAdapter {
   protected Direction facedDirection = Direction.LEFT;
   protected WeaponEntity weapon;
 
-  public Adventurer(World world, float x, float y, float width) {
+  public Adventurer(PlayWorld world, float x, float y, float width) {
     WIDTH = width;
     HEIGHT = width * 2;
 

@@ -3,14 +3,13 @@ package game.shadowlight.entities.levelObjects;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-
-import game.shadowlight.entities.type.GenericUserData;
-
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.physics.box2d.World;
+
+import game.shadowlight.entities.type.GenericUserData;
+import game.shadowlight.world.PlayWorld;
 
 /**
  * Abstract class to create a {@link BodyType#DynamicBody DynamicBody}.
@@ -26,16 +25,19 @@ public abstract class MovableObject {
   protected float height;
   protected float x;
   protected float y;
+  protected PlayWorld world;
 
-  public MovableObject(World world, float x, float y, float width, float height) {
+  public MovableObject(float x, float y, float width, float height) {
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;
+    
 
   }
 
-  public void setWorld(World world) {
+  public void setWorld(PlayWorld world) {
+    this.world = world;
     BodyDef bodyDef = new BodyDef();
     bodyDef.type = BodyType.DynamicBody;
     bodyDef.position.set(x, y);
@@ -44,7 +46,7 @@ public abstract class MovableObject {
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(width / 2, height / 2);
 
-    body = world.createBody(bodyDef);
+    body = world.getWorld().createBody(bodyDef);
     body.setUserData(getUserData());
     fixture = body.createFixture(getFixtureDef(shape));
   }
