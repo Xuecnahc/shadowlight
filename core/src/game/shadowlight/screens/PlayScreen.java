@@ -34,6 +34,7 @@ import game.shadowlight.entities.levelObjects.Box;
 import game.shadowlight.entities.type.GenericUserData;
 import game.shadowlight.entities.type.IMovable;
 import game.shadowlight.entities.type.IObserver;
+import game.shadowlight.utils.Direction;
 import game.shadowlight.utils.GameParser;
 import game.shadowlight.world.PlayWorld;
 
@@ -106,7 +107,6 @@ public class PlayScreen implements Screen {
       movable.move();
     }
     debugRenderer.render(playWorld.getWorld(), camera.combined);
-  //  debugRenderer.setDrawJoints(false);
   }
 
   @Override
@@ -145,7 +145,7 @@ public class PlayScreen implements Screen {
     }
     
     //TODO Remove this
-    Monster monster = new Monster(2, 2, 1, 1, true);
+    Monster monster = new Monster(2, 2, 1, 1, Direction.RIGHT);
     monster.setWorld(playWorld);
     tmpBodies.add(monster.getBody());
     // Create player and set listeners

@@ -21,10 +21,12 @@ import game.shadowlight.world.PlayWorld;
 public class Monster extends MovableObject implements IObserver, IMovable {
 
   // Visibility properties
-  protected boolean faceRight;
+  protected Direction direction;
   protected boolean alertState = false;
-  protected float visibilityRangeFront = 5, visibilityRangeBack = 0;
-  protected float alertVisibilityRangeFront = 10, alertVisibilityRangeBack = 2;
+  protected float visibilityRangeFront = 5;
+  protected float visibilityRangeBack = 0;
+  protected float alertVisibilityRangeFront = 10;
+  protected float alertVisibilityRangeBack = 2;
 
   protected boolean isAttacking = false;
 
@@ -34,13 +36,13 @@ public class Monster extends MovableObject implements IObserver, IMovable {
 
   protected WeaponEntity weapon;
 
-  public Monster(float x, float y, float width, float height, boolean faceRight) {
-    this(x, y, width, height, faceRight, false);
+  public Monster(float x, float y, float width, float height, Direction direction) {
+    this(x, y, width, height, direction, false);
   }
 
-  public Monster(float x, float y, float width, float height, boolean faceRight, boolean alertState) {
+  public Monster(float x, float y, float width, float height, Direction direction, boolean alertState) {
     super(x, y, width, height);
-    this.faceRight = faceRight;
+    this.direction = direction;
     this.alertState = alertState;
   }
 
@@ -87,12 +89,12 @@ public class Monster extends MovableObject implements IObserver, IMovable {
     float visibilityBack = alertState ? alertVisibilityRangeBack : visibilityRangeBack;
     for (Adventurer adventurer : world.getPlayers()) {
       float playerPosition = adventurer.getBody().getPosition().x;
-      if (playerPosition > body.getPosition().x
-          && playerPosition < body.getPosition().x + (faceRight ? visibilityFront : visibilityBack)) {
+      if (playerPosition > body.getPosition().x && playerPosition < body.getPosition().x
+          + (direction == Direction.RIGHT ? visibilityFront : visibilityBack)) {
         moveAndAct(true, playerPosition - body.getPosition().x);
         return true;
-      } else if (playerPosition <= body.getPosition().x
-          && playerPosition >= body.getPosition().x - (!faceRight ? visibilityFront : visibilityBack)) {
+      } else if (playerPosition <= body.getPosition().x && playerPosition >= body.getPosition().x
+          - (direction == Direction.LEFT ? visibilityFront : visibilityBack)) {
         moveAndAct(false, body.getPosition().x - playerPosition);
         return true;
       }
@@ -108,7 +110,7 @@ public class Monster extends MovableObject implements IObserver, IMovable {
         // During animation
         return;
       }
-      
+
       isAttacking = false;
     } else {
       if (weapon.getRange() > absoluteDistance) {
@@ -118,7 +120,7 @@ public class Monster extends MovableObject implements IObserver, IMovable {
         weapon.attack(this.body, this.width, this.height, moveRight ? Direction.RIGHT : Direction.LEFT);
       } else {
         velocity.x = speed * (moveRight ? 1 : -1);
-        faceRight = moveRight;
+        direction = moveRight ? Direction.RIGHT : Direction.LEFT;
       }
     }
   }
