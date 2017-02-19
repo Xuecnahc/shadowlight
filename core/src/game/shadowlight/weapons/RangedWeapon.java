@@ -52,7 +52,7 @@ public abstract class RangedWeapon extends WeaponEntity {
   }
 
   protected float getImpulse(Direction direction) {
-    final float range = this.getRange() + (float) Math.random() * (this.getRange() + this.getMaxRange());
+    final float range = this.getRange() + (float) Math.random() * (this.getMaxRange() - this.getRange());
     switch (direction) {
       case RIGHT:
         return range;
